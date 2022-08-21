@@ -24,15 +24,13 @@ const getUpcomingHolidays = async (countryCode: string): Promise<Holiday[]> => {
 const isValidcountryCode = async (countryCode: string): Promise<CountryCode | undefined> => {
   const response = await fetch(`https://date.nager.at/api/v3/availableCountries`);
   const data = await response.json() as CountryCode[];
-  const validCountryCode = data.find(code => code.countryCode === countryCode);
+  const validCountryCode = data.find(code => code.countryCode === countryCode.toUpperCase());
   return validCountryCode;
 }
 
 const formatHolidays = (holidays: Holiday[]) => {
 
   const formattedHolidays = holidays.map(holiday => {
-    // Date, name, counties, types
-    // return `${holiday.date}, ${holiday.name}, ${holiday.counties}, ${holiday.types}`;
     return {
       date: holiday.date,
       name: holiday.name,
@@ -46,6 +44,7 @@ const formatHolidays = (holidays: Holiday[]) => {
 async function main() {
   await storage.init({ttl: 10000});
   const fileStorage = await storage.getItem(`data-${options.countryCode}`);
+  console.log('fileStorage', fileStorage);
   let res: any;
 
   if (fileStorage) {
