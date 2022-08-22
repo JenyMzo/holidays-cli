@@ -14,7 +14,7 @@ const options = minimist(process.argv.slice(2));
 clear();
 console.log(
   chalk.green(
-    figlet.textSync('Holiday-cli', { horizontalLayout: 'full' })
+    figlet.textSync('Holidays-cli', { horizontalLayout: 'full' })
   )
 );
 
