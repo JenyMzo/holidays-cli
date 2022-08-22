@@ -22,6 +22,10 @@
     "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied 'any' type. */
 
     /* Completeness */
-    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+
+    /* Decorators */
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,                      /* Skip type checking all .d.ts files. */
   }
 }
