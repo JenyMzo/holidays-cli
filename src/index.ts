@@ -25,7 +25,7 @@ console.log(
 );
 console.log(
   chalk.blue(
-    'Usage: holidays --countryCode=<code>'
+    'Usage: npx upcoming-holidays-cli --countryCode=<code>'
   )
 );
 

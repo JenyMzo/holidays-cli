@@ -1,6 +1,6 @@
 {
   "name": "upcoming-holidays-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "CLI built in Node.js that retrieves the next 5 occurring public holidays",
   "main": "index.js",
   "type": "module",
