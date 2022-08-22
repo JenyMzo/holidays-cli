@@ -10,7 +10,7 @@ export const init = async ():Promise<void> => {
   });
 }
 
-export const getData = async(countryCode: string): Promise<Pick<HolidayStorage, "date" | "name" | "counties" | "types">[] | undefined> => {
+export const getData = async(countryCode: string): Promise<HolidayStorage[] | undefined> => {
   try {
     const fileStorage = await storage.getItem(`data-${countryCode}`);
     return fileStorage;
@@ -19,7 +19,7 @@ export const getData = async(countryCode: string): Promise<Pick<HolidayStorage, 
   }
 }
 
-export const setData = async(countryCode: string, data: Pick<HolidayStorage, "date" | "name" | "counties" | "types">[] | undefined): Promise<void> => {
+export const setData = async(countryCode: string, data: HolidayStorage[] | undefined): Promise<void> => {
   try {
     await storage.setItem(`data-${countryCode}`, data);
   } catch (error) {

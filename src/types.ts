@@ -12,9 +12,11 @@ export type Holiday = {
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 
-export type HolidayStorage = Modify<Holiday,{
+type HolidayModified = Modify<Holiday,{
   types: string | undefined;
 }>;
+
+export type HolidayStorage = Pick<HolidayModified, 'date' | 'name' | 'counties' | 'types'>
 
 export type CountryCode = {
   countryCode: string;
@@ -29,4 +31,3 @@ enum holidayType {
   Optional,
   Observance
 }
-
