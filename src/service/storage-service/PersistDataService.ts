@@ -13,7 +13,6 @@ export const init = async ():Promise<void> => {
 export const getData = async(countryCode: string): Promise<Pick<HolidayStorage, "date" | "name" | "counties" | "types">[] | undefined> => {
   try {
     const fileStorage = await storage.getItem(`data-${countryCode}`);
-    console.log('ayyy', fileStorage);
     return fileStorage;
   } catch (error) {
     console.error(error);
