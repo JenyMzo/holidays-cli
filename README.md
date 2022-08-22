@@ -1,10 +1,21 @@
 # Holiday-CLI
+
+![Alt text](banner.png?raw=true "Holiday-CLI")
 CLI built in Node.js that retrieves the next 5 occurring public holidays in a given country.
 
 ## Installation
 
 ```
 $ npm i holiday-cli
+```
+
+## Node.js version
+This project uses Node.js version `16.17.0`.
+
+If you have ```nvm``` installed, you can get the project's Node.js version by running:
+
+```
+nvm use
 ```
 
 ## Usage

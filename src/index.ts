@@ -1,41 +1,61 @@
+#!/usr/bin/env node
+import chalk from 'chalk';
+import clear from 'clear';
+import figlet from 'figlet';
 import minimist from 'minimist';
-import storage from 'node-persist';
-import 'reflect-metadata';
-import { PersistDataService } from './service/storage-service/PersistDataService.js';
-import { DateNagerService } from './service/date-nager-service/DateNagerService.js';
-import { SanitizeHolidays } from './business/sanitizeHolidays/SanitizeHolidays.js';
+
+import { getData, setData, init } from './service/storage-service/PersistDataService.js';
+import { getUpcomingHolidays, isValidcountryCode } from './service/date-nager-service/DateNagerService.js';
+import { formatHolidays } from './business/sanitizeHolidays/SanitizeHolidays.js';
 import { HolidayStorage } from './types.js';
 
 const options = minimist(process.argv.slice(2));
 
+clear();
+console.log(
+  chalk.green(
+    figlet.textSync('Holiday-cli', { horizontalLayout: 'full' })
+  )
+);
+
+console.log(
+  chalk.blue(
+    'A CLI that retrieves the next 5 occurring public holidays in a given country.'
+  )
+);
+console.log(
+  chalk.blue(
+    'Usage: holidays --countryCode=<code>'
+  )
+);
+
 if (!options.countryCode) {
-  console.error(`Please enter the country code using the '--countryCode=' parameter`)
+  console.error(chalk.red(
+    `Please enter the country code using the '--countryCode=' parameter`
+    )
+  );
   process.exit(1)
 }
 
 async function start(): Promise<void> {
-  const persistDataService = new PersistDataService();
-
-  await persistDataService.init();
-  const fileStorage = await persistDataService.getData(options.countryCode);
+  await init();
+  const fileStorage = await getData(options.countryCode);
 
   let res: Pick<HolidayStorage, 'date' | 'name' | 'counties' | 'types'>[] = [];
 
   if (fileStorage) {
     res = fileStorage;
   } else {
-    const dateNagerService = new DateNagerService();
-    const validCountryCode = await dateNagerService.isValidcountryCode(options.countryCode);
+    const validCountryCode = await isValidcountryCode(options.countryCode);
 
     if(!validCountryCode) {
-      console.error(`"${options.countryCode}" is not a valid country code`);
+      console.error(chalk.red(`"${options.countryCode}" is not a valid country code`));
       process.exit(1);
     } else {
-      const response = await dateNagerService.getUpcomingHolidays(options.countryCode);
-      const sanitizeHolidays = new SanitizeHolidays();
+      const response = await getUpcomingHolidays(options.countryCode);
 
-      res = await sanitizeHolidays.formatHolidays(response);
-      await persistDataService.setData(options.countryCode, res);
+      res = await formatHolidays(response);
+      await setData(options.countryCode, res);
     }
   }
   console.table(res);

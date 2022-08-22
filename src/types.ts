@@ -21,11 +21,6 @@ export type CountryCode = {
   name: string;
 }
 
-export interface IDateNagerService {
-  getUpcomingHolidays(countryCode: string): Promise<Holiday[]>;
-  isValidcountryCode(countryCode: string): Promise<CountryCode | undefined>;
-}
-
 enum holidayType {
   Public,
   Bank,

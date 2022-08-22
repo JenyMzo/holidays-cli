@@ -1,30 +1,24 @@
 import fetch from 'node-fetch';
-import { CountryCode, Holiday, IDateNagerService } from '../../types.js';
+import { CountryCode, Holiday } from '../../types.js';
 
-export class DateNagerService implements IDateNagerService {
-  private readonly amountOfResults;
-  protected baseUrl;
+const baseUrl = 'https://date.nager.at/api/v3';
+const amountOfResults = 5;
 
-  constructor() {
-    this.baseUrl = 'https://date.nager.at/api/v3';
-    this.amountOfResults = 5;
-  }
-
-  public async getUpcomingHolidays(countryCode: string): Promise<Holiday[]> {
+export const getUpcomingHolidays = async(countryCode: string): Promise<Holiday[]> =>{
     try {
-      const response = await fetch(`${this.baseUrl}/nextPublicholidays/${countryCode}`);
+      const response = await fetch(`${baseUrl}/nextPublicholidays/${countryCode}`);
       const data = await response.json() as Holiday[];
-      return data?.slice(0, this.amountOfResults);
+      return data?.slice(0, amountOfResults);
     } catch (error) {
       console.error(error);
       return [];
     }
   }
 
-  public async isValidcountryCode(countryCode: string): Promise<CountryCode | undefined> {
-    const response = await fetch(`${this.baseUrl}/availableCountries`);
+export const isValidcountryCode = async(countryCode: string): Promise<CountryCode | undefined> => {
+    const response = await fetch(`${baseUrl}/availableCountries`);
     const data = await response.json() as CountryCode[];
     const validCountryCode = data.find(code => code.countryCode === countryCode.toUpperCase());
     return validCountryCode;
   }
-}
+

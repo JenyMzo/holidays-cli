@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf ./build && tsc",
+    "local": "sudo npm i -g && holidays",
     "start:dev": "nodemon",
     "start": "npm run build && node build/index.js --countryCode=CO",
     "lint": "eslint . --ext .ts"
@@ -16,7 +17,7 @@
     "url": "git+https://github.com/JenyMzo/holiday-CLI.git"
   },
   "bin": {
-    "show-me-holidays": "./build/index.js"
+    "holidays": "./build/index.js"
   },
   "author": "Jeny Mazo",
   "license": "MIT",
@@ -25,6 +26,8 @@
   },
   "homepage": "https://github.com/JenyMzo/holiday-CLI#readme",
   "devDependencies": {
+    "@types/clear": "^0.1.2",
+    "@types/figlet": "^1.5.4",
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.7.8",
     "@types/node-persist": "^3.1.2",
@@ -37,6 +40,10 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "chalk": "^4.1.2",
+    "clear": "^0.1.0",
+    "commander": "^9.4.0",
+    "figlet": "^1.5.2",
     "minimist": "^1.2.6",
     "node-fetch": "^3.2.10",
     "node-persist": "^3.1.0",
