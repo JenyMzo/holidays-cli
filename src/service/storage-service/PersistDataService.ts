@@ -20,7 +20,7 @@ export class PersistDataService {
     }
   }
 
-  public async setData(countryCode: string, data: Holiday[]): Promise<void> {
+  public async setData(countryCode: string, data: Pick<HolidayStorage, "date" | "name" | "counties" | "types">[] | undefined): Promise<void> {
     try {
       await storage.setItem(`data-${countryCode}`, data);
     } catch (error) {

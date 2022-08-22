@@ -35,10 +35,10 @@ async function start(): Promise<void> {
       const sanitizeHolidays = new SanitizeHolidays();
 
       res = await sanitizeHolidays.formatHolidays(response);
-      await storage.setItem(`data-${options.countryCode}`, res);
+      await persistDataService.setData(options.countryCode, res);
     }
-    console.table(res);
   }
+  console.table(res);
 }
 
 start().catch((err) => {
