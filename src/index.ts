@@ -4,8 +4,8 @@ import clear from 'clear';
 import figlet from 'figlet';
 import minimist from 'minimist';
 
-import { getData, setData, init } from './service/storage-service/PersistDataService.js';
-import { getUpcomingHolidays, isValidcountryCode } from './service/date-nager-service/DateNagerService.js';
+import { getData, setData, init, clearData } from './service/storage-service/PersistDataService.js';
+import { getUpcomingHolidays, getValidcountryCode } from './service/date-nager-service/DateNagerService.js';
 import { formatHolidays } from './business/sanitizeHolidays/SanitizeHolidays.js';
 import { HolidayStorage } from './types.js';
 
@@ -46,7 +46,8 @@ async function start(): Promise<void> {
   if (fileStorage) {
     res = fileStorage;
   } else {
-    const validCountryCode = await isValidcountryCode(options.countryCode);
+    await clearData(options.countryCode);
+    const validCountryCode = await getValidcountryCode(options.countryCode);
 
     if(!validCountryCode) {
       console.error(chalk.red(`"${options.countryCode}" is not a valid country code`));

@@ -19,7 +19,7 @@ nvm use
 ```
 
 ## Usage
-In order to use the CLI, you need to pass the country code as an argument. You can find the list of supported country codes [here](https://date.nager.at/).
+In order to use the CLI, you need to pass the country code as an argument. You can find the list of supported country codes [here](https://date.nager.at/Country).
 
 ```
 $ npx upcoming-holidays-cli --countryCode=DE

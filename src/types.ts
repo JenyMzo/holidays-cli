@@ -7,7 +7,7 @@ export type Holiday = {
   global: boolean;
   counties: string[] | null;
   launchYear: number | null;
-  types: holidayType[] | null;
+  types: string[] | null;
 }
 
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -21,13 +21,4 @@ export type HolidayStorage = Pick<HolidayModified, 'date' | 'name' | 'counties' 
 export type CountryCode = {
   countryCode: string;
   name: string;
-}
-
-enum holidayType {
-  Public,
-  Bank,
-  School,
-  Authorities,
-  Optional,
-  Observance
 }

@@ -1,7 +1,6 @@
 import { Holiday } from '../../types.js';
 
-export const formatHolidays = async(holidays: Holiday[]) => {
-
+export const formatHolidays = (holidays: Holiday[]) => {
   const formattedHolidays = holidays.map(holiday => {
     return {
       date: holiday.date,
